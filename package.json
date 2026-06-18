@@ -36,18 +36,18 @@
   },
   "devDependencies": {
     "@rspress/core": "^2.0.0",
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.0.0",
-    "eslint": "^9.0.0",
-    "eslint-config-prettier": "^9.0.0",
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.17",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.0.0",
     "remark-parse": "^11.0.0",
-    "typescript": "^5.0.0",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.0.0",
     "unified": "^11.0.0",
     "husky": "^9.0.0",
-    "lint-staged": "^15.0.0",
-    "vitest": "^2.0.0"
+    "lint-staged": "^17.0.7",
+    "vitest": "^4.1.9"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
