@@ -1,0 +1,58 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+# Skip this workflow on version bump commits (they contain [skip ci]).
+# Requires: Settings > Actions > General > Workflow permissions = Read and write.
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history needed so git push works correctly.
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint and test
+        run: pnpm lint && pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Configure git
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Bump patch version
+        run: |
+          npm version patch -m "chore: release v%s [skip ci]"
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Push version commit and tag
+        run: git push origin main --follow-tags
