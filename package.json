@@ -20,7 +20,14 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "mermaid": "^10.9.0",
@@ -31,7 +38,25 @@
     "@rspress/core": "^2.0.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
-    "typescript": "^5.0.0"
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.0",
+    "remark-parse": "^11.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0",
+    "unified": "^11.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "vitest": "^2.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml,yaml,md}": [
+      "prettier --write"
+    ]
   },
   "peerDependencies": {
     "@rspress/core": "^2.0.0",

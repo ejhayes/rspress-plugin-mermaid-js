@@ -37,16 +37,16 @@ graph TD
 
 ## Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `height` | `number` | `480` | Diagram container height in pixels |
-| `mermaidConfig` | [`MermaidConfig`](https://mermaid.js.org/config/schema-docs/config.html) | `{}` | Mermaid configuration options passed to every diagram |
+| Option          | Type                                                                     | Default | Description                                           |
+| --------------- | ------------------------------------------------------------------------ | ------- | ----------------------------------------------------- |
+| `height`        | `number`                                                                 | `480`   | Diagram container height in pixels                    |
+| `mermaidConfig` | [`MermaidConfig`](https://mermaid.js.org/config/schema-docs/config.html) | `{}`    | Mermaid configuration options passed to every diagram |
 
 ```ts
 pluginMermaid({
   height: 600,
   mermaidConfig: { theme: 'forest' },
-})
+});
 ```
 
 ## Features

@@ -93,8 +93,7 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ code, config = {}, heig
 
   // Track native fullscreen changes (e.g. user pressing Esc).
   useEffect(() => {
-    const onChange = () =>
-      setFullscreen(document.fullscreenElement === containerRef.current);
+    const onChange = () => setFullscreen(document.fullscreenElement === containerRef.current);
     document.addEventListener('fullscreenchange', onChange);
     return () => document.removeEventListener('fullscreenchange', onChange);
   }, []);
@@ -116,8 +115,7 @@ const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ code, config = {}, heig
       smoothScroll: false,
       // Outside fullscreen, only zoom on wheel with ⌘/Ctrl so the page can
       // still scroll past the diagram.
-      beforeWheel: (e: WheelEvent) =>
-        !(fullscreenRef.current || e.ctrlKey || e.metaKey),
+      beforeWheel: (e: WheelEvent) => !(fullscreenRef.current || e.ctrlKey || e.metaKey),
     }) as unknown as PanZoomInstance;
     pzRef.current = instance;
 
