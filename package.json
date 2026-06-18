@@ -1,0 +1,48 @@
+{
+  "name": "rspress-plugin-mermaid-js",
+  "version": "0.1.0",
+  "description": "Rspress plugin to render interactive Mermaid diagrams with pan, zoom, and fullscreen support",
+  "type": "module",
+  "files": [
+    "dist",
+    "components"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "dependencies": {
+    "mermaid": "^10.9.0",
+    "panzoom": "^9.4.4",
+    "rspress-plugin-devkit": "^1.0.0"
+  },
+  "devDependencies": {
+    "@rspress/core": "^2.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@rspress/core": "^2.0.0",
+    "react": "^18.0.0"
+  },
+  "keywords": [
+    "rspress",
+    "plugin",
+    "mermaid",
+    "diagram",
+    "panzoom"
+  ],
+  "license": "MIT"
+}
