@@ -5,12 +5,9 @@ on:
     branches:
       - main
 
-# Skip this workflow on version bump commits (they contain [skip ci]).
-# Requires: Settings > Actions > General > Workflow permissions = Read and write.
-
 permissions:
-  contents: write
-  id-token: write
+  id-token: write # Required for npm OIDC trusted publishing
+  contents: write # Required to push version bump commit and tag
 
 jobs:
   publish:
@@ -18,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          # Full history needed so git push works correctly.
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -29,18 +25,14 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: pnpm
           registry-url: https://registry.npmjs.org
-          package-manager-cache: false
+          package-manager-cache: false # npm recommends no caching for release builds
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Lint and test
         run: pnpm lint && pnpm test
-
-      - name: Build
-        run: pnpm build
 
       - name: Configure git
         run: |
@@ -50,6 +42,9 @@ jobs:
       - name: Bump patch version
         run: |
           npm version patch -m "chore: release v%s [skip ci]"
+
+      - name: Build
+        run: pnpm build
 
       - name: Publish to npm
         run: npm publish
