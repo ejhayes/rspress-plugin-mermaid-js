@@ -1,5 +1,7 @@
 # rspress-plugin-mermaid-js
 
+[![npm version](https://img.shields.io/npm/v/rspress-plugin-mermaid-js.svg)](https://www.npmjs.com/package/rspress-plugin-mermaid-js)
+
 An [rspress](https://rspress.rs) plugin that renders Mermaid diagrams as interactive SVGs — pan, zoom, and fullscreen support, with automatic light/dark theme switching.
 
 Unlike static-image plugins, this renders Mermaid directly in the browser so you can navigate large, complex diagrams without losing detail.
@@ -57,6 +59,16 @@ pluginMermaid({
 - **Reset** — one click to restore the original view
 - **Light/dark theme** — automatically follows the rspress theme
 - **Error display** — shows the error message and raw code on render failure
+
+## Contributing
+
+1. [Fork the repo](https://github.com/ejhayes/rspress-plugin-mermaid-js/fork)
+2. Install and verify everything passes:
+   ```bash
+   pnpm install
+   pnpm check
+   ```
+3. Open a PR against `main`
 
 ## License
 
