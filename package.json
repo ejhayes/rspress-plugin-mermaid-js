@@ -1,6 +1,6 @@
 {
   "name": "rspress-plugin-mermaid-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Rspress plugin to render interactive Mermaid diagrams with pan, zoom, and fullscreen support",
   "type": "module",
   "files": [
