@@ -5,12 +5,15 @@ updates:
     schedule:
       interval: weekly
     groups:
-      dev-deps:
+      all:
         patterns:
           - '*'
-        dependency-type: development
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    groups:
+      all:
+        patterns:
+          - '*'
