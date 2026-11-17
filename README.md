@@ -39,10 +39,11 @@ graph TD
 
 ## Options
 
-| Option          | Type                                                                     | Default | Description                                           |
-| --------------- | ------------------------------------------------------------------------ | ------- | ----------------------------------------------------- |
-| `height`        | `number`                                                                 | `480`   | Diagram container height in pixels                    |
-| `mermaidConfig` | [`MermaidConfig`](https://mermaid.js.org/config/schema-docs/config.html) | `{}`    | Mermaid configuration options passed to every diagram |
+| Option          | Type                                                                     | Default  | Description                                           |
+| --------------- | ------------------------------------------------------------------------ | -------- | ----------------------------------------------------- |
+| `height`        | `number`                                                                 | `480`    | Diagram container height in pixels                    |
+| `root`          | `string`                                                                 | page dir | Directory that `file=` paths resolve against          |
+| `mermaidConfig` | [`MermaidConfig`](https://mermaid.js.org/config/schema-docs/config.html) | `{}`     | Mermaid configuration options passed to every diagram |
 
 ```ts
 pluginMermaid({
@@ -50,6 +51,30 @@ pluginMermaid({
   mermaidConfig: { theme: 'forest' },
 });
 ```
+
+## Include a diagram from a file
+
+Add `file=<path>` to the code fence to render the diagram from a file instead of the block's text. One `.mmd` file can then be the single source for a diagram.
+
+````md
+```mermaid file=diagrams/architecture.mmd
+
+```
+````
+
+A relative path resolves against the `root` option when you set it, and against the page's own directory when you do not:
+
+```ts
+pluginMermaid({ root: path.join(__dirname, 'docs') });
+```
+
+With that config, `file=diagrams/architecture.mmd` reads `docs/diagrams/architecture.mmd` from any page. Blocks without `file=` render as before.
+
+The build stops with a message that names the page and the path when:
+
+- the file does not exist,
+- the path resolves outside `root` (or outside the page's directory when `root` is not set),
+- the block has both `file=` and diagram text.
 
 ## Features
 
