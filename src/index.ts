@@ -66,7 +66,9 @@ function readIncludedFile(
     throw new Error(`[rspress-plugin-mermaid-js] ${page}: mermaid file="${file}" ${reason}`);
   };
   const base = root ? path.resolve(root) : path.dirname(path.resolve(page));
-  const resolved = path.resolve(base, file);
+  // A path that starts with "/" is relative to root, as rspress reads it, not
+  // to the file system root.
+  const resolved = path.resolve(base, file.startsWith('/') ? `.${file}` : file);
   const relative = path.relative(base, resolved);
   if (relative.startsWith('..') || path.isAbsolute(relative)) {
     return fail(`resolves outside ${root ? 'root' : 'the page directory'} (${base})`);
