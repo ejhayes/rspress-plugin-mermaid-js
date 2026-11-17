@@ -131,6 +131,19 @@ describe('file= include', () => {
     );
   });
 
+  it('reads a path that starts with / against root', async () => {
+    const code = await render('```mermaid file=/sub/b.mmd\n```\n', {
+      root: path.join(dir, 'docs'),
+    });
+    expect(code).toBe('graph TD\n  Page --> B');
+  });
+
+  it('fails when a path that starts with / leaves root', async () => {
+    await expect(
+      render('```mermaid file=/../outside.mmd\n```\n', { root: path.join(dir, 'docs') }),
+    ).rejects.toThrow(/outside root/);
+  });
+
   it('fails when the path leaves root', async () => {
     await expect(
       render('```mermaid file=../outside.mmd\n```\n', { root: path.join(dir, 'docs') }),

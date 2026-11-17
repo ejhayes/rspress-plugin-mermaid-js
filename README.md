@@ -62,7 +62,7 @@ Add `file=<path>` to the code fence to render the diagram from a file instead of
 ```
 ````
 
-A relative path resolves against the `root` option when you set it, and against the page's own directory when you do not:
+A relative path resolves against the `root` option when you set it, and against the page's own directory when you do not. A path that starts with `/` resolves against `root`, as rspress's own `file=` does:
 
 ```ts
 pluginMermaid({ root: path.join(__dirname, 'docs') });
