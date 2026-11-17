@@ -74,7 +74,7 @@ The build stops with a message that names the page and the path when:
 
 - the file does not exist,
 - the path resolves outside `root` (or outside the page's directory when `root` is not set),
-- the block has both `file=` and diagram text.
+- the block has `file=` and diagram text that differs from the file. Rspress fills a block that names a file before this plugin runs, so text equal to the file is accepted.
 
 ## Features
 

@@ -143,10 +143,15 @@ describe('file= include', () => {
     );
   });
 
-  it('fails when a block has both file= and text', async () => {
-    await expect(render('```mermaid file=b.mmd\ngraph TD\n  A --> B\n```\n')).rejects.toThrow(
-      /page\.md.*file="b\.mmd".*also has diagram text/,
+  it('fails when a block has file= and text that differs from the file', async () => {
+    await expect(render('```mermaid file=b.mmd\ngraph TD\n  A --> C\n```\n')).rejects.toThrow(
+      /page\.md.*file="b\.mmd".*differs from the file/,
     );
+  });
+
+  it('accepts a block that already holds the file text, as rspress fills it', async () => {
+    const code = await render('```mermaid file=b.mmd\ngraph TD\n  Page --> B\n```\n');
+    expect(code).toBe('graph TD\n  Page --> B');
   });
 
   it('leaves inline blocks unchanged', async () => {

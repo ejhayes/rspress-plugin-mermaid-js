@@ -65,20 +65,25 @@ function readIncludedFile(
   const fail = (reason: string): never => {
     throw new Error(`[rspress-plugin-mermaid-js] ${page}: mermaid file="${file}" ${reason}`);
   };
-  if (text.trim() !== '') {
-    return fail('is set on a block that also has diagram text; use one or the other');
-  }
   const base = root ? path.resolve(root) : path.dirname(path.resolve(page));
   const resolved = path.resolve(base, file);
   const relative = path.relative(base, resolved);
   if (relative.startsWith('..') || path.isAbsolute(relative)) {
     return fail(`resolves outside ${root ? 'root' : 'the page directory'} (${base})`);
   }
+  let contents: string;
   try {
-    return readFileSync(resolved, 'utf8');
+    contents = readFileSync(resolved, 'utf8');
   } catch {
     return fail(`was not found (looked for ${resolved})`);
   }
+  // Rspress fills a code block that names a file before this step runs, so a
+  // block can arrive with the file's text already in it. That text is fine. Text
+  // that differs from the file is a block written by hand, and it is refused.
+  if (text.trim() !== '' && text.trimEnd() !== contents.trimEnd()) {
+    return fail('has diagram text that differs from the file; remove the text or the file= option');
+  }
+  return contents;
 }
 
 export function pluginMermaid(options: PluginMermaidOptions = {}): RspressPlugin {
